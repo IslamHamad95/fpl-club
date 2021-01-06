@@ -4,19 +4,22 @@ import { NavLink } from "react-router-dom";
 import eplLogo from "../../storage/EPL-logo-white.png";
 
 function HomeSection() {
+
+  const comingSoon=()=>{
+    alert("Coming Soon")
+  }
   return (
     <Container className="home-section" maxWidth={false} disableGutters={true}>
       <header>
         <nav className="nav-bar">
-          <NavLink  to="./">MY TEAM</NavLink>
-          <NavLink  to="./">FIXTURES</NavLink>
-          <NavLink  to="./">PLAYERS</NavLink>
-          <NavLink  to="./">GAMEWEEKS</NavLink>
+          <NavLink onClick={comingSoon}  to="./">MY TEAM</NavLink>
+          <NavLink onClick={comingSoon} to="./">FIXTURES</NavLink>
+          <NavLink onClick={comingSoon} to="./">PLAYERS</NavLink>
+          <NavLink onClick={comingSoon} to="./">GAMEWEEKS</NavLink>
         </nav>
       </header>
       <img src={eplLogo} alt="epl-logo"></img>
       <Typography id="web-name" variant="h2">
-        {" "}
         FPL CLUB
       </Typography>
     </Container>
