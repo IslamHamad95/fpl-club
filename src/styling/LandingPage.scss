@@ -32,12 +32,14 @@
 
     img {
       width: 20%;
-      margin: 4% 40% 0% 40%;
+      margin: 4% auto;
+      display: block;
       animation: fadeIn 2s;
     }
     #web-name {
       color: white;
       font-weight: 700;
+      font-size: 7vh;
       text-align: center;
       animation: fadeIn 2s;
     }
@@ -74,12 +76,17 @@
     width: 80%;
     margin: 1% 10%;
     .table-titles {
-      margin: 1% 0%;
+      display: block;
+      margin: 1% auto;
+      width: fit-content;
       color: $primary-color;
       text-align: center;
+      font-size: 3vh;
     }
-    .transfers {
-      width: 24%;
+    .table-one {
+      width: 100%;
+      display: block;
+      margin: 0% auto;
       i {
         font-size: 3vh;
       }
@@ -93,8 +100,7 @@
 
     .stats {
       position: relative;
-      width: 50%;
-      margin: 0% 1%;
+      width: 100%;
 
       .current-gw-stats {
         background: linear-gradient(
@@ -102,17 +108,56 @@
           $primary-color 0% 20%,
           #005f59 90% 100%
         );
-        padding: 4% 0%;
+        padding: 8%;
         border: 1px solid black;
         ul {
-          width: 80%;
-          margin-left: auto;
+          width: 95%;
+          margin: 0% auto;
         }
         li {
           list-style-type: none;
-          font-size: 3vh;
+          font-size: 2.5vh;
           color: white;
-          padding: 2% 0%;
+        }
+      }
+
+      .kotw {
+        background: linear-gradient(
+          to bottom,
+          $primary-color 0% 20%,
+          #005f59 90% 100%
+        );
+
+        padding: 3% 10%;
+        border: 1px solid black;
+        h3 {
+          color: white;
+          font-size: 4vh;
+        }
+
+        .player {
+          width: 100%;
+          h3 {
+            text-align: center;
+            justify-content: end;
+          }
+
+          #kotw-img {
+            width: 100%;
+          }
+        }
+        .points {
+          width: 100%;
+
+          h3 {
+            text-align: center;
+          }
+          img {
+            width: 60%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+          }
         }
       }
     }
@@ -140,5 +185,15 @@
 
   to {
     opacity: 1;
+  }
+}
+
+/* mobile */
+
+@media screen and (max-width: 1024px) {
+  header,
+  #epl-logo,
+  .second-section {
+    display: none;
   }
 }

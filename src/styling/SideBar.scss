@@ -1,0 +1,88 @@
+@import "./MainVariables.scss";
+.side-bar {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .side-bar {
+    display: block;
+  }
+  .hamburger {
+    background: #ffffff80;
+    padding: 1%;
+    position: fixed;
+    top: 3%;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .line {
+    width: 30px;
+    height: 5px;
+    background-color: $secondary-color;
+    margin: 5px;
+  }
+
+  .navbar {
+    padding: 4% 0%;
+    position: fixed;
+    display: block;
+    background: linear-gradient(
+      to bottom,
+      #005f59 0% 40%,
+      $secondary-color  90% 100%
+      
+    );
+    left: 0%;
+    top: 0%;
+    min-width: 0vh;
+    width: 0;
+    height: 100%;
+    z-index: 2;
+    transition: ease-in;
+    transition-duration: 0.7s;
+    img {
+      width: 40%;
+      display: block;
+      margin: 4% auto;
+    }
+  }
+
+  .navbar .x:hover {
+    cursor: pointer;
+  }
+  .navbar > * {
+    background-color: inherit;
+  }
+
+  .nav-tabs {
+    background-color: inherit;
+    margin-top: 20%;
+  }
+  .nav-tabs > * {
+    background-color: inherit;
+    margin-bottom: 20%;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 3vh;
+  }
+
+  .navbar #login-nav {
+    margin-left: 34%;
+  }
+
+  .nav-tabs a {
+    color: white;
+  }
+  .nav-tabs a:hover {
+    color: $primary-color;
+  }
+
+  .open-slide {
+    float: left;
+    position: absolute;
+    top: 4%;
+    z-index: 2;
+    background-color: none;
+  }
+}

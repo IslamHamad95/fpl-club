@@ -2,7 +2,9 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 
 const FeaturesSection = () => {
+
   return (
+    <div className="second-section">
     <Grid container className="features-section">
       <Grid className="features" id="feature-one" item>
         <i className="fas fa-calendar-alt"></i>
@@ -23,6 +25,7 @@ const FeaturesSection = () => {
         </Typography>
       </Grid>
     </Grid>
+    </div>
   );
 };
 

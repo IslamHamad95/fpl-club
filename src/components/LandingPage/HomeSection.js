@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 import eplLogo from "../../storage/EPL-logo-white.png";
 
 function HomeSection() {
-
   const comingSoon=()=>{
     alert("Coming Soon")
   }
   return (
+    <div>
     <Container className="home-section" maxWidth={false} disableGutters={true}>
       <header>
         <nav className="nav-bar">
@@ -18,11 +18,12 @@ function HomeSection() {
           <NavLink onClick={comingSoon} to="./">GAMEWEEKS</NavLink>
         </nav>
       </header>
-      <img src={eplLogo} alt="epl-logo"></img>
+      <img id="epl-logo" src={eplLogo} alt="epl-logo"></img>
       <Typography id="web-name" variant="h2">
         FPL CLUB
       </Typography>
     </Container>
+    </div>
   );
 }
 
