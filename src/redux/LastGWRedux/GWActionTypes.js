@@ -1,0 +1,1 @@
+export const GET_GW_DATA_API= "GET_GW_DATA_API"

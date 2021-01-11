@@ -1,7 +1,6 @@
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { connect } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import kotw from "../../storage/kotw.png";
-import beerLogo from "../../storage/beer-logo.png";
-
 import {
   Grid,
   Table,
@@ -12,8 +11,11 @@ import {
   TableRow,
   Paper,
 } from "@material-ui/core";
-import React from "react";
-
+import kotw from "../../storage/kotw.png";
+import beerLogo from "../../storage/beer-logo.png";
+import { LatestGWData, Players } from "../../APICall";
+import { getPlayersData } from "../../redux/playersRedux/PlayersActions";
+import {getGameWeekData} from "../../redux/LastGWRedux/GWActions"
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#4c07915b",
@@ -24,7 +26,6 @@ const StyledTableCell = withStyles((theme) => ({
     fontSize: "1.8vh",
     color: "#4C0791",
   },
-
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -51,12 +52,22 @@ const rows = [
 const useStyles = makeStyles({
   table: {
     minWidth: 200,
-   
   },
 });
 
-const DataSection = () => {
+const DataSection = ({ playersData, gameWeekData,getPlayers, getGameWeek }) => {
   const classes = useStyles();
+  const fetchPlayersAPI = Players();
+  const fetchGameWeekAPI= LatestGWData(16)
+  //Fetch API Data
+  //---------------------------------------------------------
+  useEffect(()=>{
+    getPlayers(fetchPlayersAPI)
+  },[fetchPlayersAPI])
+  useEffect(()=>{
+    getGameWeek(fetchGameWeekAPI)
+  },[fetchGameWeekAPI])
+  //--------------------------------------------------------
   return (
     <Grid container className="data-section" spacing={1}>
       <Grid item lg={3}>
@@ -117,15 +128,21 @@ const DataSection = () => {
 
       <Grid item lg={6}>
         <Grid container className="stats" direction="column">
-          <h1 className="table-titles">CURRENT GAME WEEK 29</h1>
+          <h1 className="table-titles">LAST GAME WEEK []</h1>
           <Grid item className="current-gw-stats">
             <ul>
-              <li>HIGHEST POINTS:</li><br/>
-              <li>AVERAGE POINTS:</li><br/>
-              <li>MOST CAPTAINED:</li><br/>
-              <li>NUMBER OF TRANSFERS:</li><br/>
-              <li>MOST TRANSFERED IN PLAYER:</li><br/>
-              <li>NEXT DEADLINE:</li><br/>
+              <li>HIGHEST POINTS:</li>
+              <br />
+              <li>AVERAGE POINTS: </li>
+              <br />
+              <li>MOST CAPTAINED: </li>
+              <br />
+              <li>MOST POINTS: </li>
+              <br />
+              <li>NUMBER OF TRANSFERS:</li>
+              <br />
+              <li>MOST TRANSFERED IN PLAYER: </li>
+              <br />
             </ul>
           </Grid>
 
@@ -155,9 +172,7 @@ const DataSection = () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell align="left">Name</StyledTableCell>
-                    <StyledTableCell align="center">
-                      PTS
-                    </StyledTableCell>
+                    <StyledTableCell align="center">PTS</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -181,9 +196,7 @@ const DataSection = () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell align="left">Name</StyledTableCell>
-                    <StyledTableCell align="center">
-                      M$
-                    </StyledTableCell>
+                    <StyledTableCell align="center">M$</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -205,4 +218,18 @@ const DataSection = () => {
   );
 };
 
-export default DataSection;
+const mapStateToProps = (state) => {
+  return {
+    gameWeekData: state.gameWeek,
+    playersData: state.players,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPlayers: (data) => dispatch(getPlayersData(data)),
+    getGameWeek:(data)=> dispatch(getGameWeekData(data))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataSection);
