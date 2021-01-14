@@ -1,11 +1,33 @@
-import {  GET_PLAYERS_DATA_API } from "./PlayersActionTypes";
-const initialPlayers = [];
+import {
+  FETCH_PLAYERS_REQUEST,
+  FETCH_PLAYERS_SUCCESS,
+  FETCH_PLAYERS_FAILURE,
+} from "./PlayersActionTypes";
+const initialPlayers = {
+  isLoading: false,
+  players: [],
+  error: "",
+};
 
 const playersReducer = (state = initialPlayers, action) => {
   switch (action.type) {
-    case GET_PLAYERS_DATA_API:
-      return (state=[...state,...action.payload ]);
-
+    case FETCH_PLAYERS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_PLAYERS_SUCCESS:
+      return {
+        isLoading: false,
+        palyers: [...action.payload],
+        error: "",
+      };
+    case FETCH_PLAYERS_FAILURE:
+      return {
+        isLoading: false,
+        players: [],
+        error: action.payload,
+      };
     default:
       return state;
   }

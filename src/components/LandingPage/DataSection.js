@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {  useEffect} from "react";
 import { connect } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -13,9 +13,8 @@ import {
 } from "@material-ui/core";
 import kotw from "../../storage/kotw.png";
 import beerLogo from "../../storage/beer-logo.png";
-import { LatestGWData, Players } from "../../APICall";
-import { getPlayersData } from "../../redux/playersRedux/PlayersActions";
-import {getGameWeekData} from "../../redux/LastGWRedux/GWActions"
+import { fetchPlayers } from "../../redux/playersRedux/PlayersActions";
+import {fetchGameWeek} from "../../redux/LastGWRedux/GWActions"
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#4c07915b",
@@ -55,19 +54,23 @@ const useStyles = makeStyles({
   },
 });
 
-const DataSection = ({ playersData, gameWeekData,getPlayers, getGameWeek }) => {
+const DataSection = ({ getPlayers, getGameWeek }) => {
   const classes = useStyles();
-  const fetchPlayersAPI = Players();
-  const fetchGameWeekAPI= LatestGWData(16)
-  //Fetch API Data
-  //---------------------------------------------------------
+ /* const [lastGameWeek, setLastGameWeek]= useState({
+    id:0,
+    hightestPoints:0,
+    avgPoints:0,
+    numOfTransfers:0,
+    mostCaptained:"",
+    mostTransferredIn:0,
+  })
+  */
+
   useEffect(()=>{
-    getPlayers(fetchPlayersAPI)
-  },[fetchPlayersAPI])
-  useEffect(()=>{
-    getGameWeek(fetchGameWeekAPI)
-  },[fetchGameWeekAPI])
-  //--------------------------------------------------------
+    getGameWeek(16)
+    getPlayers()
+  },[getGameWeek,getPlayers])
+  
   return (
     <Grid container className="data-section" spacing={1}>
       <Grid item lg={3}>
@@ -220,15 +223,15 @@ const DataSection = ({ playersData, gameWeekData,getPlayers, getGameWeek }) => {
 
 const mapStateToProps = (state) => {
   return {
-    gameWeekData: state.gameWeek,
-    playersData: state.players,
+    gameWeekData: state.gameWeek.gameWeek,
+    playersData: state.players.players,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPlayers: (data) => dispatch(getPlayersData(data)),
-    getGameWeek:(data)=> dispatch(getGameWeekData(data))
+    getPlayers: () => dispatch(fetchPlayers()),
+    getGameWeek:(id)=> dispatch(fetchGameWeek(id))
   };
 };
 
