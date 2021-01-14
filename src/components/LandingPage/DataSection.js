@@ -1,11 +1,10 @@
-import React, {  useEffect} from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+
 import {
   Grid,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -14,49 +13,12 @@ import {
 import kotw from "../../storage/kotw.png";
 import beerLogo from "../../storage/beer-logo.png";
 import { fetchPlayers } from "../../redux/playersRedux/PlayersActions";
-import {fetchGameWeek} from "../../redux/LastGWRedux/GWActions"
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: "#4c07915b",
-    color: theme.palette.common.white,
-    fontSize: "2vh",
-  },
-  body: {
-    fontSize: "1.8vh",
-    color: "#4C0791",
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
-function createData(name, numOfTransfers) {
-  return { name, numOfTransfers };
-}
-
-const rows = [
-  createData("FERNANDES1", 3124),
-  createData("SALAH1", 72616),
-  createData("FERNANDES2", 3124),
-  createData("SALAH2", 72616),
-  createData("FERNANDES3", 3124),
-  createData("SALAH3", 72616),
-];
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 200,
-  },
-});
+import { fetchGameWeek } from "../../redux/LastGWRedux/GWActions";
+import { StyledTableCell, StyledTableRow, rows, useStyles } from "../../MaterialStyles";
 
 const DataSection = ({ getPlayers, getGameWeek }) => {
   const classes = useStyles();
- /* const [lastGameWeek, setLastGameWeek]= useState({
+  /* const [lastGameWeek, setLastGameWeek]= useState({
     id:0,
     hightestPoints:0,
     avgPoints:0,
@@ -66,11 +28,11 @@ const DataSection = ({ getPlayers, getGameWeek }) => {
   })
   */
 
-  useEffect(()=>{
-    getGameWeek(16)
-    getPlayers()
-  },[getGameWeek,getPlayers])
-  
+  useEffect(() => {
+    getGameWeek(16);
+    getPlayers();
+  }, [getGameWeek, getPlayers]);
+
   return (
     <Grid container className="data-section" spacing={1}>
       <Grid item lg={3}>
@@ -231,7 +193,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getPlayers: () => dispatch(fetchPlayers()),
-    getGameWeek:(id)=> dispatch(fetchGameWeek(id))
+    getGameWeek: (id) => dispatch(fetchGameWeek(id)),
   };
 };
 
