@@ -35,7 +35,7 @@ export const fetchGameWeek = (id) => {
         return response.json()
       }).then(data=>{
         
-        dispatch(fetchGameWeekSuccess(data.events[id]));
+        dispatch(fetchGameWeekSuccess(data.events[id-1]));
       })
       .catch((error) => {
         // error.message is the error message

@@ -19,7 +19,7 @@ import {
   useStyles,
 } from "../../MaterialStyles";
 
-import {DisplayTablesData} from "../../DisplayTableData"
+import { DisplayTablesData } from "../../DisplayTableData";
 
 const DataSection = ({
   playersData,
@@ -29,62 +29,92 @@ const DataSection = ({
 }) => {
   const classes = useStyles();
   const [mostCaptained, setMostCaptained] = useState("");
-  const [mostTransferredIn, setMostMostTransferredIn] = useState("");
+  const [mostTransferredIn, setMostTransferredIn] = useState("");
+  const [kingOfTheWeek, setKingOfTheWeek]=useState({
+    id:0,
+    code:0,
+    name:"",
+    photo:"",
+    points:0
+  })
   const [mostPoints, setMostPoints] = useState("");
-  const [sortByGoals,setSortByGoals]=useState([])
-  const [sortByAssists,setSortByAssists]=useState([])
-  const [sortByTransferredIn,setByTransferredIn]=useState([])
-  const [sortByTransferredOut,setByTransferredOut]=useState([])
+  const [sortByGoals, setSortByGoals] = useState([]);
+  const [sortByAssists, setSortByAssists] = useState([]);
+  const [sortByTransferredIn, setByTransferredIn] = useState([]);
+  const [sortByTransferredOut, setByTransferredOut] = useState([]);
   useEffect(() => {
-    getGameWeek(16);
+    getGameWeek(17);
     getPlayers();
   }, [getGameWeek, getPlayers]);
 
-  function getPlayerById(id) {
-    let x = null;
-    x = playersData.players.find((player) => player.id === id);
+  const getPlayerById=(id)=> {
+    const x = playersData.players.find((player) => player.id === id);
     return x?.web_name;
+  }
+
+  const getKOTW=(id)=>{
+    const x=playersData.players.find((player) => player.id === id);
+    return  x
   }
   useEffect(() => {
     const MC = getPlayerById(gameWeekData.most_captained);
     const MTI = getPlayerById(gameWeekData.most_transferred_in);
     const MP = getPlayerById(gameWeekData.top_element);
+    const KOTW= getKOTW(gameWeekData.top_element)
     setMostCaptained(MC);
-    setMostMostTransferredIn(MTI);
+    setMostTransferredIn(MTI);
     setMostPoints(MP);
-  }, [getPlayerById]);
+    setKingOfTheWeek({
+      id: KOTW?.id,
+      code:KOTW?.code,
+      name:KOTW?.web_name,
+      photo: KOTW?.photo,
+      points:gameWeekData.top_element_info?.points
+    })
+  }, [playersData]);
+  
   //console.log(mostCaptained,mostTransferredIn,mostPoints)
-  const sortPlayers=(sortedBy)=>{
-    const sortedArray=playersData.players.sort((a,b)=>{
-      return a[sortedBy] - b[sortedBy]
-    }).reverse().splice(0,6)
-    return sortedArray
-  }
-  useEffect(()=>{
-    const goals=  sortPlayers("goals_scored")
-    setSortByGoals([...goals]) 
-    const assists= sortPlayers("assists")
-    setSortByAssists([...assists]) 
-    const transferredIn=sortPlayers("transfers_in")
-    setByTransferredIn([...transferredIn])
-    const transferredOut= sortPlayers("transfers_out")
-    setByTransferredOut([...transferredOut])
-  },[playersData.players])
+  const sortPlayers = (sortedBy) => {
+    const sortedArray = playersData.players
+      .sort((a, b) => {
+        return a[sortedBy] - b[sortedBy];
+      })
+      .reverse()
+      .splice(0, 6);
+    return sortedArray;
+  };
+  useEffect(() => {
+    const goals = sortPlayers("goals_scored");
+    setSortByGoals([...goals]);
+    const assists = sortPlayers("assists");
+    setSortByAssists([...assists]);
+    const transferredIn = sortPlayers("transfers_in");
+    setByTransferredIn([...transferredIn]);
+    const transferredOut = sortPlayers("transfers_out");
+    setByTransferredOut([...transferredOut]);
+  }, [playersData.players]);
 
-  const TopScorrersArray= DisplayTablesData(sortByGoals,"goals_scored")
-  const TopAssistsArray= DisplayTablesData(sortByAssists,"assists")
-  const MostTransferredInArray= DisplayTablesData(sortByTransferredIn,"transfers_in")
-  const MostTransferredOutArray= DisplayTablesData(sortByTransferredOut,"transfers_out")
-
+  const TopScorrersArray = DisplayTablesData(sortByGoals, "goals_scored");
+  const TopAssistsArray = DisplayTablesData(sortByAssists, "assists");
+  const MostTransferredInArray = DisplayTablesData(
+    sortByTransferredIn,
+    "transfers_in"
+  );
+  const MostTransferredOutArray = DisplayTablesData(
+    sortByTransferredOut,
+    "transfers_out"
+  );
 
   //------------------------------------------------------------
 
   return (
     <Grid container className="data-section" spacing={1}>
       <Grid item lg={3}>
-        <Grid container spacing={2}>
+        <Grid container spacing={5}>
           <Grid item className="table-one">
-            <h1 className="table-titles">MOST TRANSFERED IN THIS SEASON</h1>
+            <h1 className="table-titles" id="title-one">
+              MOST TRANSFERED IN (20/21)
+            </h1>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="cutomized table">
                 <TableHead>
@@ -96,8 +126,8 @@ const DataSection = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {MostTransferredInArray.map((row) => (
-                    <StyledTableRow key={row.name}>
+                  {MostTransferredInArray.map((row, index) => (
+                    <StyledTableRow key={index}>
                       <StyledTableCell>{row.name}</StyledTableCell>
                       <StyledTableCell align="center">
                         {row.element}
@@ -110,7 +140,9 @@ const DataSection = ({
           </Grid>
 
           <Grid item className="table-one">
-            <h1 className="table-titles">MOST TRANSFERED OUT THIS SEASON</h1>
+            <h1 className="table-titles" id="title-two">
+              MOST TRANSFERED OUT (20/21)
+            </h1>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="cutomized table">
                 <TableHead>
@@ -122,8 +154,8 @@ const DataSection = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {MostTransferredOutArray.map((row) => (
-                    <StyledTableRow key={row.name}>
+                  {MostTransferredOutArray.map((row, index) => (
+                    <StyledTableRow key={index}>
                       <StyledTableCell>{row.name}</StyledTableCell>
                       <StyledTableCell align="center">
                         {row.element}
@@ -139,8 +171,9 @@ const DataSection = ({
 
       <Grid item lg={6}>
         <Grid container className="stats" direction="column">
-          <h1 className="table-titles">LAST GAME WEEK [{gameWeekData.id}]</h1>
-          <Grid item className="current-gw-stats">
+        <h1 className="table-titles">LAST GAME WEEK [{gameWeekData.id}]</h1>
+          <Grid item className="current-gw-stats" lg={12}>
+          
             <ul>
               <li>HIGHEST POINTS: {gameWeekData.highest_score}</li>
               <br />
@@ -150,23 +183,22 @@ const DataSection = ({
               <br />
               <li>MOST TRANSFERED IN PLAYER: {mostTransferredIn}</li>
               <br />
-              <li>MOST POINTS: {mostPoints} - 20</li>
-              <br />
               <li>NUMBER OF TRANSFERS: {gameWeekData.transfers_made}</li>
             </ul>
           </Grid>
 
           <br />
 
+         
+          <Grid item  className="kotw-table" lg={12}>
           <h1 className="table-titles">KING OF THE WEEK </h1>
-          <Grid item>
             <Grid container alignItems="center" className="kotw">
               <Grid item className="player" lg={6}>
-                <img id="kotw-img" src={kotw} alt="King of The Week" />
-                <h3> H.KANE</h3>
+                <img id="kotw-img" src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${kingOfTheWeek.code}.png`} alt="King of The Week" />
+                <h3> {kingOfTheWeek.name}</h3>
               </Grid>
               <Grid item className="points" lg={6}>
-                <h3> 20 POINTS</h3>
+                <h3> {kingOfTheWeek.points} POINTS</h3>
                 <img id="spr-logo" src={beerLogo} alt="Sponser" />
               </Grid>
             </Grid>
@@ -174,7 +206,7 @@ const DataSection = ({
         </Grid>
       </Grid>
       <Grid item lg={3}>
-        <Grid container spacing={2}>
+        <Grid container spacing={6}>
           <Grid item className="table-one">
             <h1 className="table-titles">TOP SCORRERS</h1>
             <TableContainer component={Paper}>
@@ -186,8 +218,8 @@ const DataSection = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {TopScorrersArray.map((row) => (
-                    <StyledTableRow key={row.name}>
+                  {TopScorrersArray.map((row, index) => (
+                    <StyledTableRow key={index}>
                       <StyledTableCell>{row.name}</StyledTableCell>
                       <StyledTableCell align="center">
                         {row.element}
@@ -210,8 +242,8 @@ const DataSection = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {TopAssistsArray.map((row) => (
-                    <StyledTableRow key={row.name}>
+                  {TopAssistsArray.map((row, index) => (
+                    <StyledTableRow key={index}>
                       <StyledTableCell>{row.name}</StyledTableCell>
                       <StyledTableCell align="center">
                         {row.element}
