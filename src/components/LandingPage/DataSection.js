@@ -195,9 +195,11 @@ const DataSection = ({
             <Grid container alignItems="center" className="kotw">
               <Grid item className="player" lg={6}>
                 <img id="kotw-img" src={`https://resources.premierleague.com/premierleague/photos/players/110x140/p${kingOfTheWeek.code}.png`} alt="King of The Week" />
-                <h3> {kingOfTheWeek.name}</h3>
+                
               </Grid>
               <Grid item className="points" lg={6}>
+              <h3> {kingOfTheWeek.name}</h3>
+              <br/>
                 <h3> {kingOfTheWeek.points} POINTS</h3>
                 <img id="spr-logo" src={beerLogo} alt="Sponser" />
               </Grid>
