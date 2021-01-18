@@ -19,7 +19,7 @@ const playersReducer = (state = initialPlayers, action) => {
     case FETCH_PLAYERS_SUCCESS:
       return {
         isLoading: false,
-        palyers: [...action.payload],
+        players : [...action.payload],
         error: "",
       };
     case FETCH_PLAYERS_FAILURE:

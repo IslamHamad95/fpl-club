@@ -85,8 +85,10 @@
     }
     .table-one {
       width: 100%;
+      height: fit-content;
       display: block;
       margin: 0% auto;
+
       i {
         font-size: 3vh;
       }

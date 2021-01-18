@@ -20,21 +20,15 @@ export const StyledTableCell = withStyles((theme) => ({
     },
   }))(TableRow);
   
-  function createData(name, numOfTransfers) {
-    return { name, numOfTransfers };
+  export function createData(name, element) {
+    return { name, element };
   }
   
-  export const rows = [
-    createData("FERNANDES1", 3124),
-    createData("SALAH1", 72616),
-    createData("FERNANDES2", 3124),
-    createData("SALAH2", 72616),
-    createData("FERNANDES3", 3124),
-    createData("SALAH3", 72616),
-  ];
+  
   
   export const useStyles = makeStyles({
     table: {
       minWidth: 200,
+      padding:100
     },
   });
