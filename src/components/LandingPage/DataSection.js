@@ -186,8 +186,6 @@ const DataSection = ({
             </ul>
           </Grid>
 
-          <br />
-
          
           <Grid item  className="kotw-table" lg={12}>
           <h1 className="table-titles">KING OF THE WEEK </h1>
