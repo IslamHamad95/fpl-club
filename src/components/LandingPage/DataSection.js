@@ -9,7 +9,6 @@ import {
   TableRow,
   Paper,
 } from "@material-ui/core";
-import kotw from "../../storage/kotw.png";
 import beerLogo from "../../storage/beer-logo.png";
 import { fetchPlayers } from "../../redux/playersRedux/PlayersActions";
 import { fetchGameWeek } from "../../redux/LastGWRedux/GWActions";
@@ -37,7 +36,7 @@ const DataSection = ({
     photo:"",
     points:0
   })
-  const [mostPoints, setMostPoints] = useState("");
+ 
   const [sortByGoals, setSortByGoals] = useState([]);
   const [sortByAssists, setSortByAssists] = useState([]);
   const [sortByTransferredIn, setByTransferredIn] = useState([]);
@@ -47,23 +46,22 @@ const DataSection = ({
     getPlayers();
   }, [getGameWeek, getPlayers]);
 
-  const getPlayerById=(id)=> {
-    const x = playersData.players.find((player) => player.id === id);
-    return x?.web_name;
-  }
 
-  const getKOTW=(id)=>{
-    const x=playersData.players.find((player) => player.id === id);
-    return  x
-  }
   useEffect(() => {
+    const getPlayerById=(id)=> {
+      const x = playersData.players.find((player) => player.id === id);
+      return x?.web_name;
+    }
+  
+    const getKOTW=(id)=>{
+      const x=playersData.players.find((player) => player.id === id);
+      return  x
+    }
     const MC = getPlayerById(gameWeekData.most_captained);
     const MTI = getPlayerById(gameWeekData.most_transferred_in);
-    const MP = getPlayerById(gameWeekData.top_element);
     const KOTW= getKOTW(gameWeekData.top_element)
     setMostCaptained(MC);
     setMostTransferredIn(MTI);
-    setMostPoints(MP);
     setKingOfTheWeek({
       id: KOTW?.id,
       code:KOTW?.code,
@@ -71,19 +69,20 @@ const DataSection = ({
       photo: KOTW?.photo,
       points:gameWeekData.top_element_info?.points
     })
-  }, [playersData]);
+  }, [playersData,gameWeekData]);
   
   //console.log(mostCaptained,mostTransferredIn,mostPoints)
-  const sortPlayers = (sortedBy) => {
-    const sortedArray = playersData.players
-      .sort((a, b) => {
-        return a[sortedBy] - b[sortedBy];
-      })
-      .reverse()
-      .splice(0, 6);
-    return sortedArray;
-  };
+
   useEffect(() => {
+    const sortPlayers = (sortedBy) => {
+      const sortedArray = playersData.players
+        .sort((a, b) => {
+          return a[sortedBy] - b[sortedBy];
+        })
+        .reverse()
+        .splice(0, 6);
+      return sortedArray;
+    };
     const goals = sortPlayers("goals_scored");
     setSortByGoals([...goals]);
     const assists = sortPlayers("assists");
