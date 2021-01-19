@@ -114,7 +114,7 @@ const DataSection = ({
             <h1 className="table-titles" id="title-one">
               MOST TRANSFERED IN (20/21)
             </h1>
-            <TableContainer component={Paper}>
+            <TableContainer >
               <Table className={classes.table} aria-label="cutomized table">
                 <TableHead>
                   <TableRow>
@@ -142,7 +142,7 @@ const DataSection = ({
             <h1 className="table-titles" id="title-two">
               MOST TRANSFERED OUT (20/21)
             </h1>
-            <TableContainer component={Paper}>
+            <TableContainer >
               <Table className={classes.table} aria-label="cutomized table">
                 <TableHead>
                   <TableRow>
@@ -208,7 +208,7 @@ const DataSection = ({
         <Grid container spacing={6}>
           <Grid item className="table-one">
             <h1 className="table-titles">TOP SCORRERS</h1>
-            <TableContainer component={Paper}>
+            <TableContainer >
               <Table className={classes.table} aria-label="cutomized table">
                 <TableHead>
                   <TableRow>
@@ -232,7 +232,7 @@ const DataSection = ({
 
           <Grid item className="table-one">
             <h1 className="table-titles">TOP ASSISTERS</h1>
-            <TableContainer component={Paper}>
+            <TableContainer >
               <Table className={classes.table} aria-label="cutomized table">
                 <TableHead>
                   <TableRow>
