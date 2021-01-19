@@ -108,6 +108,7 @@
     .stats {
       position: relative;
       width: 100%;
+      border: none;
 
       .current-gw-stats {
         background: linear-gradient(
@@ -128,7 +129,7 @@
         }
       }
       .kotw-table{
-        margin-top:6% ;
+       margin-top:13% ;
       }
 
       .kotw {

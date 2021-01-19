@@ -31,4 +31,7 @@ export const StyledTableCell = withStyles((theme) => ({
       minWidth: 200,
       padding:100
     },
+    Paper:{
+      border:"none"
+    }
   });

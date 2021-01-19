@@ -168,12 +168,12 @@ const DataSection = ({
         </Grid>
       </Grid>
 
-      <Grid item lg={6}>
-        <Grid container className="stats" direction="column">
-        <h1 className="table-titles">LAST GAME WEEK [{gameWeekData.id}]</h1>
-          <Grid item className="current-gw-stats" lg={12}>
-          
-            <ul>
+      <Grid item lg={6}  >
+        <Grid container  className="stats" direction="column">
+       
+          <Grid item  lg={12} >
+          <h1 className="table-titles">LAST GAME WEEK [{gameWeekData.id}]</h1>
+            <ul className="current-gw-stats">
               <li>HIGHEST POINTS: {gameWeekData.highest_score}</li>
               <br />
               <li>AVERAGE POINTS: {gameWeekData.average_entry_score} </li>
@@ -187,7 +187,7 @@ const DataSection = ({
           </Grid>
 
          
-          <Grid item  className="kotw-table" lg={12}>
+          <Grid item   className="kotw-table" justify="space-between" lg={12}>
           <h1 className="table-titles">KING OF THE WEEK </h1>
             <Grid container alignItems="center" className="kotw">
               <Grid item className="player" lg={6}>
