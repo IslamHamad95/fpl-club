@@ -187,7 +187,7 @@ const DataSection = ({
           </Grid>
 
          
-          <Grid item component={Paper}  className="kotw-table" justify="space-between" lg={12}>
+          <Grid item  className="kotw-table"  lg={12}>
           <h1 className="table-titles">KING OF THE WEEK </h1>
             <Grid container alignItems="center" className="kotw">
               <Grid item className="player" lg={6}>
