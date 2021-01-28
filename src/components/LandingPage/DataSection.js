@@ -42,7 +42,7 @@ const DataSection = ({
   const [sortByTransferredIn, setByTransferredIn] = useState([]);
   const [sortByTransferredOut, setByTransferredOut] = useState([]);
   useEffect(() => {
-    getGameWeek(18);
+    getGameWeek(20);
     getPlayers();
   }, [getGameWeek, getPlayers]);
 
