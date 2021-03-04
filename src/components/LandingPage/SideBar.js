@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import {comingSoon} from "./HomeSection"
 import eplLogo from "../../storage/EPL-logo-white.png";
 function SideBar() {
   const [sidebar, setSidebar] = useState(false);

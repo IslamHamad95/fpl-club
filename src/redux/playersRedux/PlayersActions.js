@@ -26,7 +26,7 @@ export const fetchPlayersFailure = (err) => {
 
 export const fetchPlayers = () => {
   return (dispatch) => {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://cors-anywhere.herokuapp.com/corsdemo";
     dispatch(fetchPlayersRequest());
     fetch(proxyurl + "https://fantasy.premierleague.com/api/bootstrap-static/")
 

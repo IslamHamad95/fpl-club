@@ -3,10 +3,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import eplLogo from "../../storage/EPL-logo-white.png";
 
-function HomeSection() {
-  const comingSoon=()=>{
-    alert("Coming Soon")
-  }
+export  const comingSoon=()=>{
+  alert("Coming Soon")
+}
+ function HomeSection() {
+ 
   return (
     <div>
     <Container className="home-section" maxWidth={false} disableGutters={true}>

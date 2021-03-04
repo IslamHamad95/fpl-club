@@ -27,7 +27,7 @@ export const fetchGameWeekFailure = (error) => {
 
 export const fetchGameWeek = (id) => {
   return (dispatch) => {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://cors-anywhere.herokuapp.com/corsdemo";
     dispatch(fetchGameWeekRequest());
     fetch(proxyurl + "https://fantasy.premierleague.com/api/bootstrap-static/")
 
